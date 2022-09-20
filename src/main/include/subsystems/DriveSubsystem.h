@@ -9,6 +9,11 @@
 #include <frc/motorcontrol/MotorControllerGroup.h>
 #include <frc/motorcontrol/PWMSparkMax.h>
 #include <frc2/command/SubsystemBase.h>
+#include <frc/SpeedControllerGroup.h>
+
+#include <units/voltage.h>
+
+#include <ctre/Phoenix.h>
 
 #include "Constants.h"
 
@@ -26,67 +31,22 @@ class DriveSubsystem : public frc2::SubsystemBase {
   /**
    * Drives the robot using arcade controls.
    *
-   * @param fwd the commanded forward movement
-   * @param rot the commanded rotation
+   * @param left the commanded left movement
+   * @param right the commanded right movement
    */
-  void ArcadeDrive(double fwd, double rot);
-
-  /**
-   * Resets the drive encoders to currently read a position of 0.
-   */
-  void ResetEncoders();
-
-  /**
-   * Gets the average distance of the TWO encoders.
-   *
-   * @return the average of the TWO encoder readings
-   */
-  double GetAverageEncoderDistance();
-
-  /**
-   * Gets the left drive encoder.
-   *
-   * @return the left drive encoder
-   */
-  frc::Encoder& GetLeftEncoder();
-
-  /**
-   * Gets the right drive encoder.
-   *
-   * @return the right drive encoder
-   */
-  frc::Encoder& GetRightEncoder();
-
-  /**
-   * Sets the max output of the drive.  Useful for scaling the drive to drive
-   * more slowly.
-   *
-   * @param maxOutput the maximum output to which the drive will be constrained
-   */
-  void SetMaxOutput(double maxOutput);
+  void TankDrive(double left, double right);
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
   // The motor controllers
-  frc::PWMSparkMax m_left1;
-  frc::PWMSparkMax m_left2;
-  frc::PWMSparkMax m_right1;
-  frc::PWMSparkMax m_right2;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX m_left1;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX m_left2;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX m_right1;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX m_right2;
 
-  // The motors on the left side of the drive
-  frc::MotorControllerGroup m_leftMotors{m_left1, m_left2};
-
-  // The motors on the right side of the drive
-  frc::MotorControllerGroup m_rightMotors{m_right1, m_right2};
-
-  // The robot's drive
-  frc::DifferentialDrive m_drive{m_leftMotors, m_rightMotors};
-
-  // The left-side drive encoder
-  frc::Encoder m_leftEncoder;
-
-  // The right-side drive encoder
-  frc::Encoder m_rightEncoder;
+  // The motor groups
+  frc::SpeedControllerGroup g_right;
+  frc::SpeedControllerGroup g_left;
 };
