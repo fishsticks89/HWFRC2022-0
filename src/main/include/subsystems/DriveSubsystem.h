@@ -9,7 +9,7 @@
 #include <frc/motorcontrol/MotorControllerGroup.h>
 #include <frc/motorcontrol/PWMSparkMax.h>
 #include <frc2/command/SubsystemBase.h>
-#include <frc/SpeedControllerGroup.h>
+#include <frc/motorcontrol/MotorControllerGroup.h>
 
 #include <units/voltage.h>
 
@@ -47,6 +47,6 @@ class DriveSubsystem : public frc2::SubsystemBase {
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX m_right2;
 
   // The motor groups
-  frc::SpeedControllerGroup g_right;
-  frc::SpeedControllerGroup g_left;
+  frc::MotorControllerGroup g_right;
+  frc::MotorControllerGroup g_left;
 };
