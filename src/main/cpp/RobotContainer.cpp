@@ -5,20 +5,20 @@
 #include "RobotContainer.h"
 
 #include <frc/shuffleboard/Shuffleboard.h>
-#include <frc2/command/button/JoystickButton.h>
 #include <units/angle.h>
 
-RobotContainer::RobotContainer() {
+RobotContainer::RobotContainer() : con{0} {
   // Initialize all of your commands and subsystems here
 
   // Configure the button bindings
   ConfigureButtonBindings();
 
+  printf("something");
+
   // Set up default drive command
   m_drive.SetDefaultCommand(frc2::RunCommand(
       [this] {
-        m_drive.TankDrive(-m_driverController.GetLeftY(),
-                            m_driverController.GetRightY());
+        m_drive.TankDrive(con.GetLeftY() * -12, con.GetRightY() * -12);
       },
       {&m_drive}));
 }
