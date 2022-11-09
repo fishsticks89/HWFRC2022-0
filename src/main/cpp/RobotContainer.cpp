@@ -19,7 +19,7 @@ double curve_function2(double x, double scale)
   return (scale != 0 && x != 1) ? powf(2.178,((std::abs(x*127) -127) * scale / 1000.0)) * x : x; // a ternerary to improve performance
 }
 
-RobotContainer::RobotContainer() : con{1}
+RobotContainer::RobotContainer() : con{0}
 {
   // Initialize all of your commands and subsystems here
 
